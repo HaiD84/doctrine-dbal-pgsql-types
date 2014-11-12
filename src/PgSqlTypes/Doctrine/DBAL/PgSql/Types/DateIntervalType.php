@@ -2,14 +2,13 @@
 namespace PgSqlTypes\Doctrine\DBAL\PgSql\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\Type;
 
 /**
  *
  * @author sasedev <sasedev.bifidis@gmail.com>
  *
  */
-class DateIntervalType extends Type
+class DateIntervalType extends AbstractType
 {
 
     /**

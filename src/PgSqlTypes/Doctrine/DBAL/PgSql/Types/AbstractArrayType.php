@@ -9,7 +9,7 @@ use Doctrine\DBAL\Types\Type;
  * @author sasedev <sasedev.bifidis@gmail.com>
  *
  */
-class AbstractArrayType extends Type
+class AbstractArrayType extends AbstractType
 {
 
     /**

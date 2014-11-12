@@ -3,14 +3,13 @@ namespace PgSqlTypes\Doctrine\DBAL\PgSql\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\Type;
 
 /**
  *
  * @author sasedev <sasedev.bifidis@gmail.com>
  *
  */
-class DateTimeType extends Type
+class DateTimeType extends AbstractType
 {
 
     /**
