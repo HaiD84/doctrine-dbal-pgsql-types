@@ -1,23 +1,22 @@
 <?php
-namespace PgSqlTypes\Doctrine\DBAL\PgSql\Types;
+namespace PgSqlTypes\Doctrine\DBAL\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\Type;
 
 /**
  *
  * @author sasedev <sasedev.bifidis@gmail.com>
  *
  */
-class TimeType extends Type
+class TimeTzType extends AbstractType
 {
 
     /**
      *
      * @var string
      */
-    const TIME = 'time';
+    const TIME_TZ = 'time_tz';
 
     /**
      * (non-PHPdoc)
@@ -25,7 +24,7 @@ class TimeType extends Type
      */
     public function getName()
     {
-        return self::TIME;
+        return self::TIME_TZ;
     }
 
     /**
@@ -34,7 +33,7 @@ class TimeType extends Type
      */
     public function getSQLDeclaration (array $fieldDeclaration, AbstractPlatform $platform)
     {
-        return $platform->getDoctrineTypeMapping('TIME');
+        return $platform->getDoctrineTypeMapping('TIME_TZ');
     }
 
     /**
@@ -43,7 +42,7 @@ class TimeType extends Type
      */
     public function convertToDatabaseValue ($value, AbstractPlatform $platform)
     {
-        return ($value !== null) ? $value->format('H:i:s.u') : null;
+        return ($value !== null) ? $value->format('H:i:s.uO') : null;
     }
 
     /**
@@ -56,16 +55,17 @@ class TimeType extends Type
             return null;
         }
         try {
-            $val = \DateTime::createFromFormat('H:i:s', $value);
+            $val = \DateTime::createFromFormat('H:i:sO', $value);
             if ($val === false) {
                 throw ConversionException::conversionFailedFormat($value, $this->getName(), 'H:i:s');
             }
         } catch (\Exception $e) {
-            $val = \DateTime::createFromFormat('H:i:s.u', $value);
+            $val = \DateTime::createFromFormat('H:i:s.uO', $value);
             if (! $val) {
-                throw ConversionException::conversionFailedFormat($value, $this->getName(), 'H:i:s.u');
+                throw ConversionException::conversionFailedFormat($value, $this->getName(), 'H:i:s.uO');
             }
         }
+
         return $val;
     }
 }

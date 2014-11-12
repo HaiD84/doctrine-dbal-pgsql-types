@@ -1,6 +1,6 @@
 <?php
 
-namespace PgSqlTypes\Doctrine\ORM\Query\AST\Functions\PgSql;
+namespace PgSqlTypes\Doctrine\ORM\Query\AST\Functions;
 
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\SqlWalker;

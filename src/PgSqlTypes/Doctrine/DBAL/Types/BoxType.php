@@ -1,5 +1,5 @@
 <?php
-namespace PgSqlTypes\Doctrine\DBAL\PgSql\Types;
+namespace PgSqlTypes\Doctrine\DBAL\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;

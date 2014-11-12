@@ -1,5 +1,5 @@
 <?php
-namespace PgSqlTypes\Doctrine\DBAL\PgSql\Types;
+namespace PgSqlTypes\Doctrine\DBAL\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
@@ -9,14 +9,14 @@ use Doctrine\DBAL\Types\ConversionException;
  * @author sasedev <sasedev.bifidis@gmail.com>
  *
  */
-class DateTimeTzType extends AbstractType
+class DateTimeType extends AbstractType
 {
 
     /**
      *
      * @var string
      */
-    const DATETIME_TZ = 'timestamp_tz';
+    const DATETIME = 'timestamp';
 
     /**
      * (non-PHPdoc)
@@ -24,7 +24,7 @@ class DateTimeTzType extends AbstractType
      */
     public function getName()
     {
-        return self::DATETIME_TZ;
+        return self::DATETIME;
     }
 
     /**
@@ -36,14 +36,14 @@ class DateTimeTzType extends AbstractType
         if ($value === null) {
             return null;
         } elseif ($value instanceof \DateTime) {
-            return $value->format('Y-m-d H:i:s.uO');
+            return $value->format('Y-m-d H:i:s.u');
         } elseif (is_string($value)) {
             try {
                 return parent::convertToDatabaseValue($value, $platform);
             } catch (\Exception $e) {
                 try {
                     $dt = new \DateTime($value);
-                    return $dt->format('Y-m-d H:i:s.uO');
+                    return $dt->format('Y-m-d H:i:s.u');
                 } catch (\Exception $e) {
                     throw new \Exception('Date "'.$value.'" is not a valid date');
                 }
@@ -61,9 +61,9 @@ class DateTimeTzType extends AbstractType
         try {
             return parent::convertToPHPValue($value, $platform);
         } catch (ConversionException $e) {
-            $val = \DateTime::createFromFormat('Y-m-d H:i:s.uO', $value);
+            $val = \DateTime::createFromFormat('Y-m-d H:i:s.u', $value);
             if (! $val) {
-                throw ConversionException::conversionFailedFormat($value, $this->getName(), 'Y-m-d H:i:s.uO');
+                throw ConversionException::conversionFailedFormat($value, $this->getName(), 'Y-m-d H:i:s.u');
             }
 
             return $val;
