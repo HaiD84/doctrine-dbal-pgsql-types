@@ -1,35 +1,36 @@
 {
-	"name" : "sasedev/doctrine-dbal-pgsql-types",
-	"description" : "Custom Doctrine's PostgreSQL types",
-	"keywords" : [
-		"postgresql",
-		"doctrine",
-		"dbal"
-	],
-	"type" : "library",
-	"license" : "MIT",
-	"authors" : [{
-			"name" : "Salah Abdelkader Seif Eddine",
-			"email" : "seif.salah@gmail.com"
-		}
-	],
-	"autoload" : {
-		"psr-0" : {
-			"SASEdev" : "src/"
-		}
-	},
-	"require" : {
-		"php" : ">=5.3.3",
-		"doctrine/dbal" : "~2.0"
-	},
-	"config" : {
-		"bin-dir" : "bin",
-		"process-timeout" : 1200
-	},
-	"extra" : {
-		"branch-alias" : {
-			"dev-master" : "1.0-dev"
-		}
-	},
-	"minumum-stablility" : "stable"
+    "name" : "haid84/doctrine-dbal-pgsql-types",
+    "description" : "Custom Doctrine's PostgreSQL types",
+    "keywords" : [
+        "postgresql",
+        "doctrine",
+        "dbal"
+    ],
+    "type" : "library",
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name" : "Salah Abdelkader Seif Eddine",
+            "email" : "seif.salah@gmail.com"
+        },
+        {
+            "name" : "Dmitry Khayrutdinov",
+            "email" : "haid84@gmail.com"
+        }
+    ],
+    "autoload" : {
+        "psr-0" : {
+            "PgSqlTypes" : "src/"
+        }
+    },
+    "require" : {
+        "php" : ">=5.3.3",
+        "doctrine/dbal" : "~2.0"
+    },
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "1.0-dev"
+        }
+    },
+    "minumum-stablility" : "stable"
 }

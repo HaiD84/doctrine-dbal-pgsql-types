@@ -1,5 +1,5 @@
 <?php
-namespace SASEdev\Doctrine\DBAL\Pgsql\Types;
+namespace PgSqlTypes\Doctrine\DBAL\PgSql\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
@@ -10,14 +10,14 @@ use Doctrine\DBAL\Types\Type;
  * @author sasedev <sasedev.bifidis@gmail.com>
  *
  */
-class TimeTzType extends Type
+class TimeType extends Type
 {
 
     /**
      *
      * @var string
      */
-    const TIME_TZ = 'time_tz';
+    const TIME = 'time';
 
     /**
      * (non-PHPdoc)
@@ -25,7 +25,7 @@ class TimeTzType extends Type
      */
     public function getName()
     {
-        return self::TIME_TZ;
+        return self::TIME;
     }
 
     /**
@@ -34,7 +34,7 @@ class TimeTzType extends Type
      */
     public function getSQLDeclaration (array $fieldDeclaration, AbstractPlatform $platform)
     {
-        return $platform->getDoctrineTypeMapping('TIME_TZ');
+        return $platform->getDoctrineTypeMapping('TIME');
     }
 
     /**
@@ -43,7 +43,7 @@ class TimeTzType extends Type
      */
     public function convertToDatabaseValue ($value, AbstractPlatform $platform)
     {
-        return ($value !== null) ? $value->format('H:i:s.uO') : null;
+        return ($value !== null) ? $value->format('H:i:s.u') : null;
     }
 
     /**
@@ -56,17 +56,16 @@ class TimeTzType extends Type
             return null;
         }
         try {
-            $val = \DateTime::createFromFormat('H:i:sO', $value);
+            $val = \DateTime::createFromFormat('H:i:s', $value);
             if ($val === false) {
                 throw ConversionException::conversionFailedFormat($value, $this->getName(), 'H:i:s');
             }
         } catch (\Exception $e) {
-            $val = \DateTime::createFromFormat('H:i:s.uO', $value);
+            $val = \DateTime::createFromFormat('H:i:s.u', $value);
             if (! $val) {
-                throw ConversionException::conversionFailedFormat($value, $this->getName(), 'H:i:s.uO');
+                throw ConversionException::conversionFailedFormat($value, $this->getName(), 'H:i:s.u');
             }
         }
-
         return $val;
     }
 }

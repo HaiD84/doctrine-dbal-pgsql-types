@@ -1,5 +1,5 @@
 <?php
-namespace SASEdev\Doctrine\DBAL\Pgsql\Types;
+namespace PgSqlTypes\Doctrine\DBAL\PgSql\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;

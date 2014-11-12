@@ -1,5 +1,5 @@
 <?php
-namespace SASEdev\Doctrine\DBAL\Pgsql\Types;
+namespace PgSqlTypes\Doctrine\DBAL\PgSql\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
@@ -10,14 +10,14 @@ use Doctrine\DBAL\Types\Type;
  * @author sasedev <sasedev.bifidis@gmail.com>
  *
  */
-class DateTimeType extends Type
+class DateTimeTzType extends Type
 {
 
     /**
      *
      * @var string
      */
-    const DATETIME = 'timestamp';
+    const DATETIME_TZ = 'timestamp_tz';
 
     /**
      * (non-PHPdoc)
@@ -25,7 +25,7 @@ class DateTimeType extends Type
      */
     public function getName()
     {
-        return self::DATETIME;
+        return self::DATETIME_TZ;
     }
 
     /**
@@ -37,14 +37,14 @@ class DateTimeType extends Type
         if ($value === null) {
             return null;
         } elseif ($value instanceof \DateTime) {
-            return $value->format('Y-m-d H:i:s.u');
+            return $value->format('Y-m-d H:i:s.uO');
         } elseif (is_string($value)) {
             try {
                 return parent::convertToDatabaseValue($value, $platform);
             } catch (\Exception $e) {
                 try {
                     $dt = new \DateTime($value);
-                    return $dt->format('Y-m-d H:i:s.u');
+                    return $dt->format('Y-m-d H:i:s.uO');
                 } catch (\Exception $e) {
                     throw new \Exception('Date "'.$value.'" is not a valid date');
                 }
@@ -62,9 +62,9 @@ class DateTimeType extends Type
         try {
             return parent::convertToPHPValue($value, $platform);
         } catch (ConversionException $e) {
-            $val = \DateTime::createFromFormat('Y-m-d H:i:s.u', $value);
+            $val = \DateTime::createFromFormat('Y-m-d H:i:s.uO', $value);
             if (! $val) {
-                throw ConversionException::conversionFailedFormat($value, $this->getName(), 'Y-m-d H:i:s.u');
+                throw ConversionException::conversionFailedFormat($value, $this->getName(), 'Y-m-d H:i:s.uO');
             }
 
             return $val;
