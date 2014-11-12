@@ -72,6 +72,13 @@ class AbstractArrayType extends AbstractType
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
+        if (null === $value) {
+            return null;
+        }
+        if (!is_array($value)) {
+            $value = array($value);
+        }
+
         array_walk_recursive(
             $value,
             array(
